@@ -132,9 +132,12 @@ export interface DocxOptions
     | "background"
   > {
   /**
-   * Set output type of `VFile.result`. `buffer` is `Promise<Buffer>`. `blob` is `Promise<Blob>`.
+   * Set output type of `VFile.result`.
+   * - `buffer` is `Promise<Buffer>`.
+   * - `blob` is `Promise<Blob>`.
+   * - `doc` is a `Promise<require("docx").Document>`.
    */
-  output?: "buffer" | "blob";
+  output?: "buffer" | "blob" | "document";
   /**
    * **You must set** if your markdown includes images. See example for [browser](https://github.com/inokawa/remark-docx/blob/main/stories/playground.stories.tsx) and [Node.js](https://github.com/inokawa/remark-docx/blob/main/src/index.spec.ts).
    */
@@ -198,6 +201,9 @@ export const mdastToDocx = async (
   });
 
   switch (output) {
+    case "document":
+      return doc;
+
     case "buffer":
       const bufOut = await Packer.toBuffer(doc);
       // feature detection instead of environment detection, but if Buffer exists
