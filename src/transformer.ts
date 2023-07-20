@@ -136,8 +136,9 @@ export interface DocxOptions
    * - `buffer` is `Promise<Buffer>`.
    * - `blob` is `Promise<Blob>`.
    * - `doc` is a `Promise<require("docx").Document>`.
+   * - `rawNodes` is a `Promise<require("docx").DocxChild[]`.
    */
-  output?: "buffer" | "blob" | "document";
+  output?: "buffer" | "blob" | "document" | "rawNodes";
   /**
    * **You must set** if your markdown includes images. See example for [browser](https://github.com/inokawa/remark-docx/blob/main/stories/playground.stories.tsx) and [Node.js](https://github.com/inokawa/remark-docx/blob/main/src/index.spec.ts).
    */
@@ -203,6 +204,9 @@ export const mdastToDocx = async (
   switch (output) {
     case "document":
       return doc;
+
+    case "rawNodes":
+      return nodes;
 
     case "buffer":
       const bufOut = await Packer.toBuffer(doc);
