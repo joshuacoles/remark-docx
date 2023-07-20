@@ -136,7 +136,7 @@ export interface DocxOptions
    * - `buffer` is `Promise<Buffer>`.
    * - `blob` is `Promise<Blob>`.
    * - `doc` is a `Promise<require("docx").Document>`.
-   * - `rawNodes` is a `Promise<require("docx").DocxChild[]`.
+   * - `rawNodes` is a `Promise<(Paragraph | Table | TableOfContents)[]`.
    */
   output?: "buffer" | "blob" | "document" | "rawNodes";
   /**
